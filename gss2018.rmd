@@ -87,9 +87,16 @@ The fisher exact test p-value is 0.01651, is less than 0.05. So we conclude that
 
 Is there a difference in years of education (EDUC) between the those who did or did not vote in 2012 (VOTE12)?
 
+$H_0$: There is no difference between years of education and those who did or did not vote in 2012
+
+$H_A$: There is no difference between years of education and those who did or did not vote in 2012
+
 ## Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
+
+The response variable is EDUC, which is numerical variable. The predictor variable is VOTE12, which is categorical variable. The helper file that we would use is the numerical~cat file. 
+
 
 ##Results
 
@@ -101,13 +108,31 @@ Is there a difference in years of education (EDUC) between the those who did or 
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+plot(EDUC~VOTE12,data=GSSdata)
+```
+
+This plot shows that those who voted in 2012 have a higher level of years of education, and those people that didn't vote in 2012 have a lower years of education. 
+
 #### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+```{r}
+favstats(EDUC~VOTE12,data=GSSdata)
+```
+
+This table shows that those who voted in 2012 have a higher level of years of education, and those people that didn't vote in 2012 have a lower years of education. 
+
 ### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+
+```{r}
+t.test(EDUC~VOTE12,data=GSSdata)
+```
+
+This t-test p-value is 0.0000001248, which is lower than 0.05, therefore we reject the null hypothesis, which is that there is no difference between years of education and those who did or did not vote in 2012. We conclude that there is a difference between years of education and those who did or did not vote in 2012
 
 #  Question 3
 
@@ -115,9 +140,14 @@ Is there a difference in years of education (EDUC) between the those who did or 
 
 Determine if a persons performance on the wordsum test (WORDSUM) is independent of their level of schooling (DEGREE).
 
+$H_0$ There is no difference between the average score on the WORDSUM test and level of schooling DEGREE  
+$H_A$ There is a significant difference in average score on the WORDSUM test between at least two levels of DEGREE  
+
 ## Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
+
+The response variable is WORDSUM, which is numerical variable. The predictor variable is DEGREE, which is categorical variable. The helper file that we would use is the numerical~cat file. 
 
 ##Results
 
@@ -128,17 +158,40 @@ Determine if a persons performance on the wordsum test (WORDSUM) is independent 
 #### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+# Create a box plot
+ggplot(data=GSSdata, aes(x = DEGREE, y = WORDSUM)) +
+  geom_boxplot() +
+  xlab("Category") +
+  ylab("WORDSUM") +
+  ggtitle("Boxplot of Response Variable by Category")
+```
+
+This graph shows the WORSUM scores of those with a Bachelor's degree, graduate, high school, and junior college dregree, and less than highschool level of education. 
 
 #### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+```{r}
+favstats(WORDSUM~DEGREE,data=GSSdata)
+```
+
+This data shows the mean and median scores of WORDSUM test based on the level of education of a person. This data shows that those who received bachelor, graduate and junior college level of education scored higher on the WORDSUM test, who scored around 9-10,  than those in high school an LT high school who scored around 7-8
 
 ### Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
+
+```{r}
+model1 <- aov(WORDSUM~DEGREE,data=GSSdata)
+summary.aov(model1)
+```
+
+The p-value is 0.00000025, which is lower than 0.05. Therefore, we reject the null hypothesis. This means that there is a significant difference in average score on the WORDSUM test between at least two levels of DEGREE. 
 
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
 
+Yes, there is a difference between  the average score on the WORDSUM test and level of schooling DEGREE. Since the p-value is 0.00000025, which is lower than 0.05, we reject the null hypothesis, which is there is no difference between the average score on the WORDSUM test and level of schooling DEGREE. Based on the evidence, we conclude that there is a significant difference in average score on the WORDSUM test between at least two levels of DEGREE
