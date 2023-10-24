@@ -1,7 +1,7 @@
 ---
 title: "General Social Survey"
-author: "Your Name"
-date: "Year 2020"
+author: "Erika Mondragon"
+date: "Fall 2023"
 output: 
   html_document:
     number_sections: true
@@ -27,9 +27,15 @@ The data in the dataframe GSSdata is from the 2018 General Social Survey. The fi
 First question - Is opinion on the death penalty (CAPPUN) independent of gun ownership (OWNGUN)?
 
 
+$H_0$: There is no relationship between gun ownership and opinion on the death penalty
+
+$H_A$: There is a relationship between gun ownership and opinion on the death penalty
+
 ## Methods
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
+
+Both variables are categorical, therfore we use the Cat~Cat file
 
 ##Results
 
